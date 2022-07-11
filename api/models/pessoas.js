@@ -1,7 +1,16 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   const Pessoas = sequelize.define('Pessoas', {
-    nome: DataTypes.STRING,
+    nome: { 
+      type: DataTypes.STRING,
+      validate: {
+        validaNome(dado) {
+          if(dado.length < 2) {
+            throw new Error('Campo nome náo pode ser menor que 2 caracteres')
+          }
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     email: {
       type: DataTypes.STRING,
