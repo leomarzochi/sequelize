@@ -3,9 +3,17 @@ module.exports = (sequelize, DataTypes) => {
   const Pessoas = sequelize.define('Pessoas', {
     nome: DataTypes.STRING,
     ativo: DataTypes.BOOLEAN,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'e-mail inválido'
+        }
+      }
+    },
     role: DataTypes.STRING
-  }, {paranoid: true,
+  }, { paranoid: true,
     defaultScope: { 
       where: { ativo: true } 
     },
