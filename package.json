@@ -5,7 +5,7 @@
   "main": "./api/index.js",
   "scripts": {
     "lint": "eslint api --fix",
-    "start": "nodemon ./api/index.js \"npm run lint\""
+    "dev": "nodemon ./api/index.js \"npm run lint\""
   },
   "keywords": [],
   "author": "",
@@ -15,8 +15,8 @@
     "express": "^4.17.1",
     "mysql2": "^2.1.0",
     "path": "^0.12.7",
-    "sequelize": "^5.21.7",
-    "sequelize-cli": "^5.5.1"
+    "sequelize": "^6.21.3",
+    "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
     "eslint": "^7.4.0",

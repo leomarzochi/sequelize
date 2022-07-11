@@ -8,6 +8,7 @@ module.exports = {
   'parserOptions': {
     'ecmaVersion': 11
   },
+  'presets': ['es2015'],
   'rules': {
     'indent': [
       'error',
