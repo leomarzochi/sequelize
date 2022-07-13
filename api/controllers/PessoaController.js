@@ -1,13 +1,13 @@
 const database = require('../models')
 const {literal} = require('sequelize')
-const PessoaService = require('../services/PessoasService');
+const {PessoaServices} = require('../services');
 
-const pessoaService = new PessoaService('Pessoas')
+const pessoaServices = new PessoaServices()
 
 class PessoaController {
   static async pegaTodasAsPessoas(req, res) {
     try {
-      const pessoasAtivas = await pessoaService.pegaTodasOsRegistros()
+      const pessoasAtivas = await pessoaServices.pegaTodasOsRegistros()
       return res.status(200).json(pessoasAtivas);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -16,7 +16,7 @@ class PessoaController {
 
   static async pegaTodosAtivos(req, res) {
     try {
-      const todasAsPessoas = await pessoaService.pegaRegistrosAtivo();
+      const todasAsPessoas = await pessoaServices.pegaRegistrosAtivo();
       return res.status(200).json(todasAsPessoas);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -198,19 +198,8 @@ class PessoaController {
   static cancelaEstudante = async (req, res) => {
     const { estudanteId } = req.params;
     try {
-      database.sequelize.transaction(async transacao => {
-        await database.Pessoas.update(
-          { ativo: false },
-          { where: { id: Number(estudanteId) } },
-          {transaction: transacao}
-        )
-        await database.Matriculas.update(
-          { status: 'cancelado' },
-          { where: { estudante_id: Number(estudanteId) } },
-          {transaction: transacao}
-        )
-        res.status(200).json({message: 'estudante cancelado com sucesso'})
-      })
+      await pessoaServices.cancelaPessoaEMatricula(Number(estudanteId))
+      return res.status(200).json({message: 'Estudante cancelado com sucesso.'})
     } catch (err) {
       res.status(200).json(err.message)
     }

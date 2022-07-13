@@ -1,9 +1,9 @@
 const {Pessoas} = require('../models')
 const Services = require('./Services')
 
-class PessoaService extends Services {
+class MatriculasService extends Services {
   constructor () {
-    super('Pessoas')
+    super('Matriculas')
   }
 
   async pegaTodasOsRegistros(where = {}) {
@@ -20,4 +20,4 @@ class PessoaService extends Services {
   }
 }
 
-module.exports = PessoaService;
+module.exports = MatriculasService;
